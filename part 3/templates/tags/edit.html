@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Tag{% endblock %}
+
+{% block content %}
+
+<h1>Edit a tag</h1>
+
+<form method="POST" action="{{ url_for('tags.edit', id=tag.id) }}">
+
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Enter a name for the tag" value="{{ tag.name }}">
+  </div>
+
+  <div class="form-group">
+    <label>Posts:</label><br>
+    {% for post in posts %}
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="post_{{ post.id }}" name="posts" value="{{ post.id }}"
+        {% if post in tag.posts %} checked {% endif %}>
+        <label class="form-check-label" for="post_{{ post.id }}">{{ post.title }}</label>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="form-group">
+    <a href="{{ url_for('tags.index') }}" class="btn btn-info">Cancel</a>
+    <button type="submit" class="btn btn-success">Edit</button>
+  </div>
+
+</form>
+
+{% endblock %}

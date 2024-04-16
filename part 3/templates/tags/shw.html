@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ tag.name }}{% endblock %}
+
+{% block content %}
+  <h1>{{ tag.name }}</h1>
+
+  <ul>
+    {% for post in tag.posts %}
+      <li><a href="{{ url_for('posts.show', id=post.id) }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <form method="POST" action="{{ url_for('tags.delete', id=tag.id) }}">
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </form>
+
+  <form method="GET" action="{{ url_for('tags.edit', id=tag.id) }}">
+    <button type="submit" class="btn btn-primary">Edit</button>
+  </form>
+{% endblock %}
